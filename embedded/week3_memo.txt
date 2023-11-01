@@ -1,0 +1,9 @@
+(3.2)
+RGBC Time = 101 ms
+Gain = 4x;
+
+黒色の下敷きを読んでいるときの値:04C4あたり
+Red:1CBEあたり
+Green:2483あたり
+Blue:47FBあたり
+Yellow:58A3あたり
