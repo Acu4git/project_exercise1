@@ -338,6 +338,8 @@ INPUT /home/kwgc/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-
 INPUT /home/kwgc/.texlive2021/texmf-var/luatexja/extra_lmmono10-italic.luc
 INPUT /home/kwgc/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmsans10-regular.luc
 INPUT /home/kwgc/.texlive2021/texmf-var/luatexja/extra_lmsans10-regular.luc
+INPUT /home/kwgc/.texlive2021/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-italic.luc
+INPUT /home/kwgc/.texlive2021/texmf-var/luatexja/extra_lmroman10-italic.luc
 INPUT build/main.aux
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmmi5.pfb

@@ -22,7 +22,7 @@
 \contentsline {paragraph}{【考察1】}{8}{}%
 \contentsline {paragraph}{【考察2】}{8}{}%
 \contentsline {paragraph}{【考察3】}{8}{}%
-\contentsline {section}{\numberline {6}問題回答}{8}{}%
+\contentsline {section}{\numberline {6}問題回答}{9}{}%
 \contentsline {subsection}{\numberline {6.1}問題1}{9}{}%
 \contentsline {subsection}{\numberline {6.2}問題2}{9}{}%
 \contentsline {subsection}{\numberline {6.3}問題3}{9}{}%
@@ -30,5 +30,5 @@
 \contentsline {subsection}{\numberline {6.5}問題5}{9}{}%
 \contentsline {subsection}{\numberline {6.6}問題6}{9}{}%
 \contentsline {paragraph}{delay\_ms()}{9}{}%
-\contentsline {paragraph}{itoh()}{9}{}%
-\contentsline {paragraph}{itoa()}{9}{}%
+\contentsline {paragraph}{itoh()}{10}{}%
+\contentsline {paragraph}{itoa()}{10}{}%

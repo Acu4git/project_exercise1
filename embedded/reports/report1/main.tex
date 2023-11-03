@@ -65,7 +65,7 @@ LaunchPadには3色LEDが内蔵されており，このLEDはGPIOポートFに�
 圧電ブザーはGPIOピンに接続されており，PWM機能を利用して周期的にON-OFFを繰り返すパルス波形を出力することによって音を鳴らす．
 一般的な音階の周波数$f$は次の式で与えられる．
 \begin{equation}
-    f=440\times2^{\frac{n}{12}}
+  f=440\times2^{\frac{n}{12}}
 \end{equation}
 $n$の値を$-9$から$+3$と変化させることで音階を表せる．また，ブザーのONとOFFの時間を同じにするためにはパルス幅を周期の半分として与えるなど，
 様々な工夫をすることで多種多様な音を表すことができる．
@@ -79,10 +79,10 @@ LCDを周辺機器として接続し，LCDのアドレスに適切な命令と�
 \subsection{【課題1】仮想シリアルポートへの出力}
 プロジェクトblinkyをCCSにインポートした．そして，仮想シリアルポートへの出力をTerminal Pluginによって受信するために，以下のように設定した．
 \begin{figure}
-    \centering
-    \includegraphics[width=0.3\textwidth]{mysetting.jpg}
-    \caption{Terminal Pluginの設定}
-    \label{fig:Terminal_Plugin}
+  \centering
+  \includegraphics[width=0.3\textwidth]{mysetting.jpg}
+  \caption{Terminal Pluginの設定}
+  \label{fig:Terminal_Plugin}
 \end{figure}
 
 この設定の後，blinky\_main.cのmain()関数内のUARTprintf()のコメントアウトを外してビルドを行い，
@@ -112,10 +112,10 @@ SW1PinIntHandler()関数にてSW1を押すことで音を鳴らしたり消し�
 仮想シリアルポートへの出力を確認するためにターミナルの設定をした後UARTprintf()のコメントアウトを外してビルドを行い実行すると，LEDが青く点滅すると同時に以下のようなメッセージがターミナルで確認できた．
 
 \begin{figure}
-    \centering
-    \includegraphics[width=0.9\textwidth]{Hello.png}
-    \caption{【課題1】における仮想シリアルポートへの出力内容}
-    \label{fig:Hello_World}
+  \centering
+  \includegraphics[width=0.9\textwidth]{Hello.png}
+  \caption{【課題1】における仮想シリアルポートへの出力内容}
+  \label{fig:Hello_World}
 \end{figure}
 
 \subsection{【課題2】blinkyの改造}
@@ -296,27 +296,33 @@ void SW1PinIntHandler(void) {
 そして，35行目でSW1による割り込みを許可した．
 
 \section{考察}
-\paragraph{【考察1】}\ref{a2initInt}
-\paragraph{【考察2】}いいいいいい
-\paragraph{【考察3】}
+\paragraph{【考察1】}GPIO割り込みはGPIOポートの電圧の変化を読んで割り込みを認識し，これにより外部からの入力を検知して割り込みを発生させる．
+今回の実験では，GPIO割り込みはSW1スイッチの押下による割り込みを発生させる役割を担うと考えられる（外部割り込み）．また，Systickは24ビットのダウンカウンタであり，
+カウンタが0になると割り込みが発生する．そのため．Systick割り込みはタイマーとしての役割を担うと考えられる（内部割り込み）．~\cite{ti}
+\paragraph{【考察2】}周辺機器の接続にI$^2$Cを使用すると，機器のmasterとslaveを自由に決めることができる，2本の信号線のみを用いて機器を接続できる，
+などの利点がある．~\cite{ti}
+\paragraph{【考察3】}割り込みが発生したときだけセンサ読み込みを可能にする実装により，プロセッサのリソースの効率化，割り込みベースによるシステムの単純化，エネルギー効率化などが考えられる．
+センサが常に監視状態として働いているとそれだけで電力の消費が大きくなるが，割り込みの採用によりセンサが検知していないときはアイドル状態となり電力の消費を減らすことができる．
+また，監視に割いていたリソースをその他の処理に割けるという点でリソースの効率化が見込める．割り込みを用いない場合，センサの処理はポーリング方式などで行う必要があるが，多数のセンサに対応させられるか，
+検知した瞬間に反応できるか，といった問題が生じる．その点，割り込みの採用によりこれらの問題の解消が見込める．
 
 \section{問題回答}
 \subsection{問題1}
 LEDの各色についてOn,Offの2通りを行い，全部消灯している状態は含まないので，求める総数は
 \begin{align*}
-    2^3-1=7\ 通り
+  2^3-1=7\ 通り
 \end{align*}
 
 \subsection{問題2}
 問題1におけるOn,Offの2通りから$2^8$通りの制御に変わっただけなので，求める総数は
 \begin{align*}
-    (2^8)^3-1=16777215\ 通り
+  (2^8)^3-1=16777215\ 通り
 \end{align*}
 
 \subsection{問題3}
 ソースコード\ref{a3toneBuzzer}を見ると，周期の長さの設定はPWMGenPeriodSet()で行っている．
-また，パルス幅はPWMPulseWidthSet()で行っており，3つ目の引数はtone>>1となっているためtoneは周波数を表していると考えられる．
-よって1オクターブを高くするには元の音階を表すマクロ定数（O4C等）を2倍してtoneBuzzer()に渡すと良い．
+また，パルス幅はPWMPulseWidthSet()で行っており，3つ目の引数はtone>>1となっているためtoneはパルス波の周期を表していると考えられる．
+よって1オクターブ音を高くするには音階の周期を表すマクロ定数（O4C等）を$\frac{1}{2}$倍してtoneBuzzer()に渡すと良い．
 
 \subsection{問題4}
 まず，何も抵抗が繋がれていない状態では外部からの静電気などで壊れやすいため抵抗に繋いでおくと不安定を防ぐことができる．
@@ -330,5 +336,13 @@ LEDの各色についてOn,Offの2通りを行い，全部消灯している状�
 \paragraph{delay\_ms()}引数に与えたuint32\_t型の数（マイクロ秒単位）の分だけプログラムを遅らせる
 \paragraph{itoh()}uint32\_t型の数値を16進数表記の文字列に変換し，それを格納した配列を返す
 \paragraph{itoa()}int32\_t型の数値を10進数表記の文字列に変換し，それを格納した配列を返す
+
+\begin{thebibliography}{9}
+  \bibitem{ti}
+  Texas Instruments Incorporated.
+  \textit{TM4C123GH6PM Microcontroller DATA SHEET}.
+  TEXAS INSTRUMENTS.\ 2014.\ https://www.ti.com/lit/ds/spms376e/spms376e.pdf,
+  (accsessed 2023-10-31)
+\end{thebibliography}
 
 \end{document}
